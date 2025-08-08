@@ -199,13 +199,29 @@ function generateFretboard() {
 }
 
 function handleNoteClick(element) {
-    // Remover clase active de todas las posiciones
+    // Limpiar todas las posiciones primero
     document.querySelectorAll('.note-position').forEach(pos => {
         pos.classList.remove('active');
+        // Limpiar estilos inline excepto si showAllNotes está activo
+        if (!showAllNotes) {
+            pos.style.color = 'transparent';
+            pos.style.background = 'transparent';
+        } else {
+            pos.style.color = '#333';
+            pos.style.background = 'rgba(255,255,255,0.1)';
+        }
+        pos.style.transform = '';
+        pos.style.boxShadow = '';
     });
     
     // Agregar clase active a la posición clickeada
     element.classList.add('active');
+    
+    // Aplicar estilo dorado a la nota seleccionada
+    element.style.background = 'rgba(255, 215, 0, 0.8)';
+    element.style.color = '#333';
+    element.style.transform = 'scale(1.1)';
+    element.style.boxShadow = '0 3px 8px rgba(0,0,0,0.3)';
     
     // Efecto visual en la cuerda correspondiente
     const stringNumber = parseInt(element.dataset.string);
@@ -279,6 +295,16 @@ function getNoteAtPosition(string, fret) {
 function clearSelection() {
     document.querySelectorAll('.note-position').forEach(pos => {
         pos.classList.remove('active');
+        // Limpiar estilos inline excepto si showAllNotes está activo
+        if (!showAllNotes) {
+            pos.style.color = 'transparent';
+            pos.style.background = 'transparent';
+        } else {
+            pos.style.color = '#333';
+            pos.style.background = 'rgba(255,255,255,0.1)';
+        }
+        pos.style.transform = '';
+        pos.style.boxShadow = '';
     });
     currentNote = null;
     currentString = null;
