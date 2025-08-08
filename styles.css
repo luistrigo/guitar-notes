@@ -740,27 +740,7 @@ main {
     }
 }
 
-/* Móvil en horizontal */
-@media (max-width: 480px) and (orientation: landscape) {
-    .strings {
-        height: 100px;
-    }
-    
-    .guitar-neck {
-        padding: 10px;
-    }
-    
-    .note-position {
-        margin-top: 5px;
-        height: 25px;
-    }
-    
-    .info-panel {
-        padding: 15px;
-        flex-direction: row;
-        gap: 20px;
-    }
-}
+
 
 /* Nota flotante para el juego */
 .floating-note {
@@ -770,7 +750,7 @@ main {
     transform: translate(-50%, -50%);
     background: rgba(255, 215, 0, 0.9);
     color: #333;
-    font-size: 4rem;
+    font-size: 2rem;
     font-weight: bold;
     padding: 2rem 3rem;
     border-radius: 20px;
@@ -814,14 +794,14 @@ main {
 /* Responsive para la nota flotante */
 @media (max-width: 768px) {
     .floating-note {
-        font-size: 3rem;
+        font-size: 2rem;
         padding: 1.5rem 2rem;
     }
 }
 
 @media (max-width: 480px) {
     .floating-note {
-        font-size: 2.5rem;
+        font-size: 1.5rem;
         padding: 1rem 1.5rem;
     }
 }
@@ -1087,5 +1067,49 @@ main {
     .play-again-btn-compact {
         font-size: 11px;
         padding: 6px 12px;
+    }
+}
+
+/* Móvil en horizontal - AL FINAL PARA MAYOR PRIORIDAD */
+@media (max-width: 480px) and (orientation: landscape) {
+    .strings {
+        height: 200px !important;
+    }
+    
+    .guitar-neck {
+        padding: 10px !important;
+    }
+    
+    .note-position {
+        margin-top: 5px !important;
+        height: 25px !important;
+    }
+    
+    .info-panel {
+        padding: 15px !important;
+        flex-direction: row !important;
+        gap: 20px !important;
+    }
+}
+
+/* Estilos para pantallas muy anchas y bajas (simula móvil horizontal) */
+@media (max-width: 480px) and (min-height: 300px) and (max-height: 400px) {
+    .strings {
+        height: 200px !important;
+    }
+    
+    .guitar-neck {
+        padding: 10px !important;
+    }
+    
+    .note-position {
+        margin-top: 5px !important;
+        height: 25px !important;
+    }
+    
+    .info-panel {
+        padding: 15px !important;
+        flex-direction: row !important;
+        gap: 20px !important;
     }
 }
