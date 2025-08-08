@@ -596,50 +596,23 @@ main {
     position: relative;
 }
 
-.fret:first-child {
-    border-left: 3px solid #654321;
+.fret.last-fret {
+    border-right: none;
 }
-
-.fret-numbers {
+.fret.middle-fret {
+    background-color: #ffffff23;
+    border-radius: 10px;
     display: flex;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 800px;
-    padding: 0 20px;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.fret-number {
-    background: rgba(255,255,255,0.98);
-    color: #333;
-    font-weight: bold;
-    font-size: 14px;
-    padding: 8px 12px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-    border: 2px solid rgba(0,0,0,0.1);
-    min-width: 25px;
-    text-align: center;
-    font-family: 'Arial', sans-serif;
-    transition: all 0.2s ease;
+.fret:first-child {
+    border-right:18px solid #d9ceb0;
 }
 
-.fret-number:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-}
 
-.fret-number.hidden {
-    display: none;
-}
-
-/* Mejorar visibilidad de los números de traste */
-.fret-number {
-    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%) !important;
-    border: 2px solid #667eea !important;
-    color: #333 !important;
-    font-weight: 700 !important;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
-}
 
 .fretboard {
     position: absolute;
@@ -750,17 +723,7 @@ main {
         height: 2px;
     }
     
-    .fret-numbers {
-        max-width: 100%;
-        padding: 0 15px;
-        margin: 0;
-    }
-    
-    .fret-number {
-        font-size: 12px;
-        padding: 6px 8px;
-        min-width: 20px;
-    }
+
     
     .controls {
         flex-direction: column;
@@ -816,16 +779,7 @@ main {
         height: 1px;
     }
     
-    .fret-numbers {
-        padding: 0 10px;
-        margin: 0;
-    }
-    
-    .fret-number {
-        font-size: 10px;
-        padding: 5px 6px;
-        min-width: 16px;
-    }
+
     
     .note-position {
         font-size: 8px;

@@ -12,7 +12,7 @@ const translations = {
         instructions: "Haz clic en cualquier posición del mástil para ver la nota correspondiente",
         language: "Idioma",
         notation: "Notación",
-        showFretNumbers: "Mostrar números de traste",
+    
         spanishNotation: "DO RE MI FA",
         englishNotation: "C D E F",
         save: "Guardar",
@@ -43,7 +43,7 @@ const translations = {
         instructions: "Click on any position on the fretboard to see the corresponding note",
         language: "Language",
         notation: "Notation",
-        showFretNumbers: "Show fret numbers",
+    
         spanishNotation: "DO RE MI FA",
         englishNotation: "C D E F",
         save: "Save",
@@ -79,7 +79,7 @@ const noteConfig = {
 // Variables globales
 let currentLanguage = 'es';
 let currentNotation = 'spanish';
-let showFretNumbers = true;
+
 let showAllNotes = false;
 let currentNote = null;
 let currentString = null;
@@ -111,14 +111,14 @@ const elements = {
     modalTitle: document.getElementById('modal-title'),
     modalLanguage: document.getElementById('modal-language'),
     modalNotation: document.getElementById('modal-notation'),
-    showFretNumbers: document.getElementById('show-fret-numbers'),
+
     saveSettings: document.getElementById('save-settings'),
     cancelSettings: document.getElementById('cancel-settings'),
     closeModal: document.getElementById('close-modal'),
     guitarNeck: document.querySelector('.guitar-neck'),
     frets: document.querySelector('.frets'),
     fretboard: document.querySelector('.fretboard'),
-    fretNumbers: document.querySelector('.fret-numbers'),
+
     // Elementos del juego
     gameInterface: document.getElementById('game-interface'),
     gameResults: document.getElementById('game-results'),
@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function initializeApp() {
     generateFrets();
-    generateFretNumbers();
+
     generateFretboard();
     updateLanguage();
     
@@ -190,20 +190,21 @@ function generateFrets() {
     elements.frets.innerHTML = '';
     for (let i = 0; i <= 12; i++) {
         const fret = document.createElement('div');
-        fret.className = 'fret';
+        if (i === 0) {
+            fret.className = 'fret first-fret';
+        } else if (i === 12) {
+            fret.className = 'fret last-fret';
+        } else if (i==3 || i === 5 || i === 7 || i === 9) {
+            fret.className = 'fret middle-fret';
+            fret.innerHTML = `<div>${i}</div>`;
+        }else{
+            fret.className = 'fret';
+        }
         elements.frets.appendChild(fret);
     }
 }
 
-function generateFretNumbers() {
-    elements.fretNumbers.innerHTML = '';
-    for (let i = 0; i <= 12; i++) {
-        const fretNumber = document.createElement('div');
-        fretNumber.className = `fret-number ${showFretNumbers ? '' : 'hidden'}`;
-        fretNumber.textContent = i;
-        elements.fretNumbers.appendChild(fretNumber);
-    }
-}
+
 
 function generateFretboard() {
     elements.fretboard.innerHTML = '';
@@ -335,7 +336,7 @@ function updateLanguage() {
     const modalLabels = document.querySelectorAll('.setting-group label');
     if (modalLabels[0]) modalLabels[0].textContent = t.language + ':';
     if (modalLabels[1]) modalLabels[1].textContent = t.notation + ':';
-    if (modalLabels[2]) modalLabels[2].textContent = t.showFretNumbers + ':';
+
     
     // Actualizar botones
     elements.saveSettings.textContent = t.save;
@@ -399,7 +400,7 @@ function openSettingsModal() {
     // Cargar configuración actual en la modal
     elements.modalLanguage.value = currentLanguage;
     elements.modalNotation.value = currentNotation;
-    elements.showFretNumbers.checked = showFretNumbers;
+
     
     elements.modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
@@ -413,7 +414,7 @@ function closeSettingsModal() {
 function saveSettings() {
     const newLanguage = elements.modalLanguage.value;
     const newNotation = elements.modalNotation.value;
-    const newShowFretNumbers = elements.showFretNumbers.checked;
+
     
     // Aplicar cambios
     if (newLanguage !== currentLanguage) {
@@ -426,24 +427,12 @@ function saveSettings() {
         generateFretboard();
     }
     
-    if (newShowFretNumbers !== showFretNumbers) {
-        showFretNumbers = newShowFretNumbers;
-        updateFretNumbers();
-    }
+
     
     closeSettingsModal();
 }
 
-function updateFretNumbers() {
-    const fretNumbers = document.querySelectorAll('.fret-number');
-    fretNumbers.forEach(number => {
-        if (showFretNumbers) {
-            number.classList.remove('hidden');
-        } else {
-            number.classList.add('hidden');
-        }
-    });
-}
+
 
 function toggleShowAllNotes() {
     showAllNotes = !showAllNotes;
