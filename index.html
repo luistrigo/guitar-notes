@@ -41,8 +41,28 @@
                         <button id="stop-game" class="stop-game-btn-compact hidden">Parar</button>
                     </div>
                 </div>
-                
-                
+            </div>
+            
+            <!-- Resultados del Juego en el Header -->
+            <div id="game-results" class="game-results-compact hidden">
+                <div class="results-header-compact">
+                    <h3 class="results-title-compact">¡Juego Terminado!</h3>
+                    <div class="results-stats-compact">
+                        <span class="stat-item-compact">
+                            <span class="stat-label-compact">Aciertos:</span>
+                            <span id="correct-answers" class="stat-value-compact">0</span>
+                        </span>
+                        <span class="stat-item-compact">
+                            <span class="stat-label-compact">Fallos:</span>
+                            <span id="wrong-answers" class="stat-value-compact">0</span>
+                        </span>
+                        <span class="stat-item-compact">
+                            <span class="stat-label-compact">Tiempo:</span>
+                            <span id="total-time" class="stat-value-compact">0s</span>
+                        </span>
+                    </div>
+                    <button id="play-again" class="play-again-btn-compact">Jugar de Nuevo</button>
+                </div>
             </div>
         </header>
 
@@ -90,25 +110,7 @@
 
 
 
-            <!-- Resultados del Juego -->
-            <div id="game-results" class="game-results hidden">
-                <h2>¡Juego Terminado!</h2>
-                <div class="results-stats">
-                    <div class="stat-item">
-                        <span class="stat-label">Aciertos:</span>
-                        <span id="correct-answers" class="stat-value">0</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-label">Fallos:</span>
-                        <span id="wrong-answers" class="stat-value">0</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-label">Tiempo Total:</span>
-                        <span id="total-time" class="stat-value">0s</span>
-                    </div>
-                </div>
-                <button id="play-again" class="play-again-btn">Jugar de Nuevo</button>
-            </div>
+
         </main>
     </div>
 
