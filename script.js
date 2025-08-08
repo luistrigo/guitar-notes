@@ -3,6 +3,8 @@ const translations = {
     es: {
         title: "Guitarra - Aprende las Notas",
         settings: "Configuración",
+        showNotes: "Ver Notas",
+        hideNotes: "Ocultar Notas",
         noteLabel: "Nota Actual:",
         stringLabel: "Cuerda:",
         fretLabel: "Traste:",
@@ -18,6 +20,8 @@ const translations = {
     en: {
         title: "Guitar - Learn the Notes",
         settings: "Settings",
+        showNotes: "Show Notes",
+        hideNotes: "Hide Notes",
         noteLabel: "Current Note:",
         stringLabel: "String:",
         fretLabel: "Fret:",
@@ -48,6 +52,7 @@ const noteConfig = {
 let currentLanguage = 'es';
 let currentNotation = 'spanish';
 let showFretNumbers = true;
+let showAllNotes = false;
 let currentNote = null;
 let currentString = null;
 let currentFret = null;
@@ -62,6 +67,8 @@ const elements = {
     currentNote: document.getElementById('current-note'),
     stringNumber: document.getElementById('string-number'),
     fretNumber: document.getElementById('fret-number'),
+    showNotesBtn: document.getElementById('show-notes-btn'),
+    showNotesText: document.getElementById('show-notes-text'),
     settingsBtn: document.getElementById('settings-btn'),
     settingsText: document.getElementById('settings-text'),
     modal: document.getElementById('settings-modal'),
@@ -97,6 +104,9 @@ function setupEventListeners() {
     elements.closeModal.addEventListener('click', closeSettingsModal);
     elements.cancelSettings.addEventListener('click', closeSettingsModal);
     elements.saveSettings.addEventListener('click', saveSettings);
+    
+    // Event listener para mostrar/ocultar notas
+    elements.showNotesBtn.addEventListener('click', toggleShowAllNotes);
     
     // Cerrar modal al hacer clic fuera
     window.addEventListener('click', function(e) {
@@ -152,6 +162,12 @@ function generateFretboard() {
             
             notePosition.dataset.note = note;
             notePosition.textContent = note;
+            
+            // Aplicar estado inicial de mostrar todas las notas
+            if (showAllNotes) {
+                notePosition.style.color = '#333';
+                notePosition.style.background = 'rgba(255,255,255,0.1)';
+            }
             
             // Event listener para cada posición
             notePosition.addEventListener('click', function() {
@@ -222,6 +238,7 @@ function updateLanguage() {
     
     elements.title.textContent = t.title;
     elements.settingsText.textContent = t.settings;
+    elements.showNotesText.textContent = showAllNotes ? t.hideNotes : t.showNotes;
     elements.noteLabel.textContent = t.noteLabel;
     elements.stringLabel.textContent = t.stringLabel;
     elements.fretLabel.textContent = t.fretLabel;
@@ -325,4 +342,31 @@ function updateFretNumbers() {
             number.classList.add('hidden');
         }
     });
+}
+
+function toggleShowAllNotes() {
+    showAllNotes = !showAllNotes;
+    
+    // Actualizar el botón
+    elements.showNotesBtn.classList.toggle('active', showAllNotes);
+    
+    // Actualizar el texto del botón
+    updateLanguage();
+    
+    // Mostrar/ocultar todas las notas
+    const notePositions = document.querySelectorAll('.note-position');
+    notePositions.forEach(position => {
+        if (showAllNotes) {
+            position.style.color = '#333';
+            position.style.background = 'rgba(255,255,255,0.1)';
+        } else {
+            position.style.color = 'transparent';
+            position.style.background = 'transparent';
+        }
+    });
+    
+    // Limpiar selección actual si se ocultan las notas
+    if (!showAllNotes) {
+        clearSelection();
+    }
 }
