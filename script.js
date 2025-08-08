@@ -122,10 +122,8 @@ const elements = {
     // Elementos del juego
     gameInterface: document.getElementById('game-interface'),
     gameResults: document.getElementById('game-results'),
-    gameTitle: document.getElementById('game-title'),
     currentRound: document.getElementById('current-round'),
     timer: document.getElementById('timer'),
-    targetNote: document.getElementById('target-note'),
     gameFeedback: document.getElementById('game-feedback'),
     feedbackIcon: document.getElementById('feedback-icon'),
     feedbackText: document.getElementById('feedback-text'),
@@ -157,19 +155,19 @@ function initializeApp() {
 
 function setupEventListeners() {
     // Event listeners para la modal
-    elements.settingsBtn.addEventListener('click', openSettingsModal);
-    elements.closeModal.addEventListener('click', closeSettingsModal);
-    elements.cancelSettings.addEventListener('click', closeSettingsModal);
-    elements.saveSettings.addEventListener('click', saveSettings);
+    if (elements.settingsBtn) elements.settingsBtn.addEventListener('click', openSettingsModal);
+    if (elements.closeModal) elements.closeModal.addEventListener('click', closeSettingsModal);
+    if (elements.cancelSettings) elements.cancelSettings.addEventListener('click', closeSettingsModal);
+    if (elements.saveSettings) elements.saveSettings.addEventListener('click', saveSettings);
     
     // Event listener para mostrar/ocultar notas
-    elements.showNotesBtn.addEventListener('click', toggleShowAllNotes);
+    if (elements.showNotesBtn) elements.showNotesBtn.addEventListener('click', toggleShowAllNotes);
     
     // Event listeners del juego
-    elements.gameBtn.addEventListener('click', window.gameModule.toggleGameMode);
-    elements.startGameBtn.addEventListener('click', window.gameModule.startGame);
-    elements.stopGameBtn.addEventListener('click', window.gameModule.stopGame);
-    elements.playAgainBtn.addEventListener('click', window.gameModule.startGame);
+    if (elements.gameBtn) elements.gameBtn.addEventListener('click', window.gameModule.toggleGameMode);
+    if (elements.startGameBtn) elements.startGameBtn.addEventListener('click', window.gameModule.startGame);
+    if (elements.stopGameBtn) elements.stopGameBtn.addEventListener('click', window.gameModule.stopGame);
+    if (elements.playAgainBtn) elements.playAgainBtn.addEventListener('click', window.gameModule.startGame);
     
     // Cerrar modal al hacer clic fuera
     window.addEventListener('click', function(e) {
@@ -327,10 +325,9 @@ function updateLanguage() {
     elements.modalTitle.textContent = t.settings;
     
     // Actualizar elementos del juego
-    elements.gameTitle.textContent = t.findNote;
-    elements.startGameBtn.textContent = t.startGame;
-    elements.stopGameBtn.textContent = t.stopGame;
-    elements.playAgainBtn.textContent = t.playAgain;
+    if (elements.startGameBtn) elements.startGameBtn.textContent = t.startGame;
+    if (elements.stopGameBtn) elements.stopGameBtn.textContent = t.stopGame;
+    if (elements.playAgainBtn) elements.playAgainBtn.textContent = t.playAgain;
     
     // Actualizar etiquetas de la modal
     const modalLabels = document.querySelectorAll('.setting-group label');
@@ -398,22 +395,25 @@ document.addEventListener('click', function(e) {
 // Funciones de la modal
 function openSettingsModal() {
     // Cargar configuración actual en la modal
-    elements.modalLanguage.value = currentLanguage;
-    elements.modalNotation.value = currentNotation;
+    if (elements.modalLanguage) elements.modalLanguage.value = currentLanguage;
+    if (elements.modalNotation) elements.modalNotation.value = currentNotation;
 
-    
-    elements.modal.style.display = 'block';
-    document.body.style.overflow = 'hidden';
+    if (elements.modal) {
+        elements.modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
 }
 
 function closeSettingsModal() {
-    elements.modal.style.display = 'none';
-    document.body.style.overflow = 'auto';
+    if (elements.modal) {
+        elements.modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
 }
 
 function saveSettings() {
-    const newLanguage = elements.modalLanguage.value;
-    const newNotation = elements.modalNotation.value;
+    const newLanguage = elements.modalLanguage ? elements.modalLanguage.value : currentLanguage;
+    const newNotation = elements.modalNotation ? elements.modalNotation.value : currentNotation;
 
     
     // Aplicar cambios

@@ -24,6 +24,26 @@
                     <span id="settings-text">Configuración</span>
                 </button>
             </div>
+            
+            <!-- Interfaz del Juego en el Header -->
+            <div id="game-interface" class="game-interface hidden">
+                <div class="game-header-compact">
+                    <div class="game-stats-compact">
+                        <span id="current-round">Ronda: 1/10</span>
+                        <span id="timer">⏱️ 3</span>
+                    </div>
+                    <div class="game-feedback hidden" id="game-feedback">
+                        <span id="feedback-icon">😊</span>
+                        <span id="feedback-text">¡Correcto!</span>
+                    </div>
+                    <div class="game-controls-compact">
+                        <button id="start-game" class="start-game-btn-compact">Iniciar</button>
+                        <button id="stop-game" class="stop-game-btn-compact hidden">Parar</button>
+                    </div>
+                </div>
+                
+                
+            </div>
         </header>
 
         <main>
@@ -68,30 +88,7 @@
                 <p id="instructions-text">Haz clic en cualquier posición del mástil para ver la nota correspondiente</p>
             </div>
 
-            <!-- Interfaz del Juego -->
-            <div id="game-interface" class="game-interface hidden">
-                <div class="game-header">
-                    <h2 id="game-title">¡Encuentra la Nota!</h2>
-                    <div class="game-stats">
-                        <span id="current-round">Ronda: 1/10</span>
-                        <span id="timer">⏱️ 3</span>
-                    </div>
-                </div>
-                
-                <div class="target-note-container">
-                    <div id="target-note" class="target-note">DO</div>
-                </div>
-                
-                <div class="game-feedback hidden" id="game-feedback">
-                    <span id="feedback-icon">😊</span>
-                    <span id="feedback-text">¡Correcto!</span>
-                </div>
-                
-                <div class="game-controls">
-                    <button id="start-game" class="start-game-btn">Iniciar Juego</button>
-                    <button id="stop-game" class="stop-game-btn hidden">Parar Juego</button>
-                </div>
-            </div>
+
 
             <!-- Resultados del Juego -->
             <div id="game-results" class="game-results hidden">

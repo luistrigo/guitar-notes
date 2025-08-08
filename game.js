@@ -15,14 +15,26 @@ let gameElements = {};
 // Funciones del juego
 function toggleGameMode() {
     const gameInterfaceHidden = gameElements.gameInterface.classList.contains('hidden');
+    const showNotesBtn = document.getElementById('show-notes-btn');
+    const settingsBtn = document.getElementById('settings-btn');
+    
     if (gameInterfaceHidden) {
         gameElements.gameInterface.classList.remove('hidden');
         gameElements.gameResults.classList.add('hidden');
         gameElements.gameBtn.classList.add('active');
+        
+        // Ocultar otros botones
+        showNotesBtn.classList.add('hidden');
+        settingsBtn.classList.add('hidden');
     } else {
         gameElements.gameInterface.classList.add('hidden');
         gameElements.gameResults.classList.add('hidden');
         gameElements.gameBtn.classList.remove('active');
+        
+        // Mostrar otros botones
+        showNotesBtn.classList.remove('hidden');
+        settingsBtn.classList.remove('hidden');
+        
         stopGame();
     }
 }
