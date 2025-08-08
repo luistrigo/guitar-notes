@@ -6,8 +6,9 @@ let correctAnswers = 0;
 let wrongAnswers = 0;
 let gameStartTime = 0;
 let currentTargetNote = '';
+let currentTargetString = 0; // Nueva variable para la cuerda objetivo
 let gameTimer = null;
-let timeLeft = 3;
+let timeLeft = 10;
 
 // Referencias a elementos del DOM (se inicializarán desde script.js)
 let gameElements = {};
@@ -77,19 +78,22 @@ function showFirstNote() {
     // Obtener la configuración de notas desde el scope global
     const config = window.noteConfig[window.currentNotation];
     const randomNote = config.notes[Math.floor(Math.random() * config.notes.length)];
-    currentTargetNote = randomNote;
+    const randomString = Math.floor(Math.random() * 6) + 1; // Cuerda del 1 al 6
     
-    // Mostrar la nota flotante en lugar de la nota en la interfaz
-    showFloatingNote(randomNote);
+    currentTargetNote = randomNote;
+    currentTargetString = randomString;
+    
+    // Mostrar la nota flotante con la cuerda específica
+    showFloatingNote(randomNote, randomString);
     
     // Ocultar el feedback al mostrar la primera nota
     gameElements.gameFeedback.classList.add('hidden');
     
     // Mostrar la nota pero no iniciar el timer hasta que el usuario haga clic
-    timeLeft = 3;
+    timeLeft = 10;
     updateTimer();
     
-    console.log('Primera nota mostrada:', randomNote, '- Timer no iniciado');
+    console.log('Primera nota mostrada:', randomNote, 'en cuerda', randomString, '- Timer no iniciado');
 }
 
 function stopGame() {
@@ -116,19 +120,22 @@ function generateNewNote() {
     // Obtener la configuración de notas desde el scope global
     const config = window.noteConfig[window.currentNotation];
     const randomNote = config.notes[Math.floor(Math.random() * config.notes.length)];
-    currentTargetNote = randomNote;
+    const randomString = Math.floor(Math.random() * 6) + 1; // Cuerda del 1 al 6
     
-    // Mostrar la nota flotante en lugar de la nota en la interfaz
-    showFloatingNote(randomNote);
+    currentTargetNote = randomNote;
+    currentTargetString = randomString;
+    
+    // Mostrar la nota flotante con la cuerda específica
+    showFloatingNote(randomNote, randomString);
     
     // Ocultar el mensaje de feedback
     gameElements.gameFeedback.classList.add('hidden');
     
     // Iniciar temporizador
-    timeLeft = 3;
+    timeLeft = 10;
     updateTimer();
     
-    console.log('Nueva nota generada:', randomNote);
+    console.log('Nueva nota generada:', randomNote, 'en cuerda', randomString);
     
     gameTimer = setInterval(() => {
         timeLeft--;
@@ -176,8 +183,10 @@ function showFeedback(isCorrect, type = '') {
     gameElements.gameFeedback.classList.remove('hidden');
 }
 
-function showFloatingNote(note) {
-    gameElements.floatingNoteText.textContent = note;
+function showFloatingNote(note, string) {
+    const t = window.translations[window.currentLanguage];
+    const stringNames = ['', '1ª', '2ª', '3ª', '4ª', '5ª', '6ª']; // Nombres de las cuerdas
+    gameElements.floatingNoteText.textContent = `${note} - ${stringNames[string]} cuerda`;
     gameElements.floatingNote.classList.remove('hidden');
     gameElements.floatingNote.classList.remove('disappearing');
     
@@ -237,7 +246,7 @@ function endGame() {
 }
 
 // Función para verificar si una nota clickeada es correcta
-function checkNoteAnswer(clickedNote) {
+function checkNoteAnswer(clickedNote, clickedString) {
     if (!gameActive) return false;
     
     // Si es la primera respuesta del juego, iniciar el timer para la siguiente ronda
@@ -251,8 +260,11 @@ function checkNoteAnswer(clickedNote) {
         gameTimer = null;
     }
     
-    if (clickedNote === currentTargetNote) {
-        console.log('¡Acierto! Nota:', clickedNote, 'Objetivo:', currentTargetNote);
+    // Verificar que la nota Y la cuerda sean correctas
+    const isCorrect = clickedNote === currentTargetNote && clickedString === currentTargetString;
+    
+    if (isCorrect) {
+        console.log('¡Acierto! Nota:', clickedNote, 'Cuerda:', clickedString, 'Objetivo:', currentTargetNote, 'Cuerda objetivo:', currentTargetString);
         correctAnswers++;
         showFeedback(true);
         setTimeout(() => {
@@ -262,7 +274,7 @@ function checkNoteAnswer(clickedNote) {
         }, 1500);
         return true;
     } else {
-        console.log('Falló. Nota:', clickedNote, 'Objetivo:', currentTargetNote);
+        console.log('Falló. Nota:', clickedNote, 'Cuerda:', clickedString, 'Objetivo:', currentTargetNote, 'Cuerda objetivo:', currentTargetString);
         wrongAnswers++;
         showFeedback(false);
         setTimeout(() => {
