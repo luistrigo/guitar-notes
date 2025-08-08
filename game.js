@@ -14,6 +14,10 @@ let gameElements = {};
 
 // Funciones del juego
 function toggleGameMode() {
+    if(showAllNotes){
+        toggleShowAllNotes();
+        
+    }
     const gameInterfaceHidden = gameElements.gameInterface.classList.contains('hidden');
     const showNotesBtn = document.getElementById('show-notes-btn');
     const settingsBtn = document.getElementById('settings-btn');
