@@ -27,25 +27,31 @@ function toggleGameMode() {
         gameElements.gameInterface.classList.remove('hidden');
         gameElements.gameResults.classList.add('hidden');
         gameElements.gameBtn.classList.add('active');
-        
+        gameElements.headerButtons.classList.add('hidden');
         // Ocultar otros botones
         showNotesBtn.classList.add('hidden');
         settingsBtn.classList.add('hidden');
     } else {
-        gameElements.gameInterface.classList.add('hidden');
-        gameElements.gameResults.classList.add('hidden');
-        gameElements.gameBtn.classList.remove('active');
-        
-        // Mostrar otros botones
-        showNotesBtn.classList.remove('hidden');
-        settingsBtn.classList.remove('hidden');
+       interfaceNormal();
         
         stopGame();
     }
 }
 
+function interfaceNormal(){
+    const showNotesBtn = document.getElementById('show-notes-btn');
+    const settingsBtn = document.getElementById('settings-btn');
+    gameElements.gameInterface.classList.add('hidden');
+    gameElements.gameResults.classList.add('hidden');
+    gameElements.gameBtn.classList.remove('active');
+    gameElements.headerButtons.classList.remove('hidden');
+    // Mostrar otros botones
+    showNotesBtn.classList.remove('hidden');
+    settingsBtn.classList.remove('hidden');   
+}
+
 function startGame() {
-    console.log('Iniciando juego...');
+   
     gameActive = true;
     currentRound = 1;
     correctAnswers = 0;
@@ -56,8 +62,7 @@ function startGame() {
     gameElements.gameInterface.classList.remove('hidden');
     gameElements.gameResults.classList.add('hidden');
     
-    gameElements.startGameBtn.classList.add('hidden');
-    gameElements.stopGameBtn.classList.remove('hidden');
+    
     
     updateGameUI();
     
@@ -102,10 +107,8 @@ function stopGame() {
         clearInterval(gameTimer);
         gameTimer = null;
     }
+    interfaceNormal();
     
-    gameElements.startGameBtn.classList.remove('hidden');
-    gameElements.stopGameBtn.classList.add('hidden');
-    gameElements.gameFeedback.classList.add('hidden');
 }
 
 function generateNewNote() {

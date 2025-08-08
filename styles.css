@@ -19,7 +19,7 @@ body {
 
 header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
 }
 
 #title {
@@ -71,6 +71,10 @@ select:hover {
 }
 
 .header-buttons button.hidden {
+    display: none;
+}
+
+.header-buttons.hidden {
     display: none;
 }
 
@@ -496,7 +500,7 @@ main {
 
 .strings {
     position: relative;
-    height: 300px;
+    height: 250px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

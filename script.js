@@ -21,7 +21,7 @@ const translations = {
         findNote: "¡Encuentra la Nota en la Cuerda Específica!",
         round: "Ronda",
         startGame: "Iniciar Juego",
-        stopGame: "Parar Juego",
+        stopGame: "Salir",
         playAgain: "Jugar de Nuevo",
         gameOver: "¡Juego Terminado!",
         correct: "¡Correcto!",
@@ -52,7 +52,7 @@ const translations = {
         findNote: "Find the Note on the Specific String!",
         round: "Round",
         startGame: "Start Game",
-        stopGame: "Stop Game",
+        stopGame: "Exit",
         playAgain: "Play Again",
         gameOver: "Game Over!",
         correct: "Correct!",
@@ -132,7 +132,8 @@ const elements = {
     playAgainBtn: document.getElementById('play-again'),
     correctAnswers: document.getElementById('correct-answers'),
     wrongAnswers: document.getElementById('wrong-answers'),
-    totalTime: document.getElementById('total-time')
+    totalTime: document.getElementById('total-time'),
+    headerButtons: document.getElementById('header-buttons'),
 };
 
 // Inicialización
