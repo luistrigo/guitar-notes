@@ -481,9 +481,14 @@ main {
 
 /* Responsive design */
 @media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    
     .guitar-neck {
         min-width: 100%;
         padding: 10px;
+        margin: 0;
     }
     
     .fret {
@@ -501,6 +506,7 @@ main {
     .fret-numbers {
         max-width: 100%;
         padding: 0 10px;
+        margin: 0;
     }
     
     .fret-number {
@@ -517,6 +523,7 @@ main {
     .info-panel {
         flex-direction: column;
         gap: 15px;
+        margin: 0;
     }
     
     #title {
@@ -525,6 +532,16 @@ main {
 }
 
 @media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .guitar-neck {
+        min-width: 100%;
+        padding: 10px;
+        margin: 0;
+    }
+    
     .fret {
         width: 30px;
     }
@@ -539,6 +556,7 @@ main {
     
     .fret-numbers {
         padding: 0 5px;
+        margin: 0;
     }
     
     .fret-number {
@@ -550,5 +568,10 @@ main {
     .note-position {
         font-size: 10px;
         margin: 2px;
+    }
+    
+    .info-panel {
+        margin: 0;
+        padding: 15px;
     }
 }
