@@ -1,100 +1,100 @@
-# Guitarra - Aprende las Notas
+# Guitar Notes - Learn the Fretboard
 
-Una aplicación web interactiva para aprender las notas del mástil de la guitarra de manera visual y práctica.
+An interactive web application to learn guitar fretboard notes visually and practically.
 
-## Características
+## Features
 
-- **Mástil interactivo** con 6 cuerdas y 12 trastes
-- **Sistema multiidioma** (Español e Inglés)
-- **Dos notaciones musicales**:
-  - Notación española: DO, RE, MI, FA, SOL, LA, SI
-  - Notación inglesa: C, D, E, F, G, A, B
-- **Interfaz moderna y responsive**
-- **Diseño intuitivo** para principiantes y avanzados
+- **Interactive fretboard** with 6 strings and 12 frets
+- **Multi-language system** (Spanish and English)
+- **Two musical notations**:
+  - Spanish notation: DO, RE, MI, FA, SOL, LA, SI
+  - English notation: C, D, E, F, G, A, B
+- **Modern and responsive interface**
+- **Intuitive design** for beginners and advanced users
 
-## Cómo usar
+## How to Use
 
-1. **Abre el archivo `index.html`** en tu navegador web
-2. **Selecciona el idioma** en el menú desplegable superior
-3. **Elige la notación musical** que prefieras
-4. **Haz clic en cualquier posición** del mástil para ver la nota correspondiente
-5. **Observa la información** en el panel inferior:
-   - Nota actual
-   - Número de cuerda
-   - Número de traste
+1. **Open the `index.html` file** in your web browser
+2. **Select the language** from the settings modal
+3. **Choose the musical notation** you prefer
+4. **Click on any position** on the fretboard to see the corresponding note
+5. **Check the information** in the bottom panel:
+   - Current note
+   - String number
+   - Fret number
 
-## Funcionalidades
+## Functionality
 
-### Cambio de Idioma
-- **Español**: Interfaz completa en español
-- **English**: Interfaz completa en inglés
+### Language Change
+- **Spanish**: Complete interface in Spanish
+- **English**: Complete interface in English
 
-### Notaciones Musicales
-- **DO RE MI FA**: Notación tradicional española
-- **C D E F**: Notación internacional
+### Musical Notations
+- **DO RE MI FA**: Traditional Spanish notation
+- **C D E F**: International notation
 
-### Interacción
-- **Hover**: Al pasar el mouse sobre una posición, se resalta
-- **Click**: Al hacer clic, se muestra la nota de forma permanente
-- **Click fuera**: Al hacer clic fuera del mástil, se limpia la selección
+### Interaction
+- **Hover**: When hovering over a position, it highlights
+- **Click**: When clicking, the note is displayed permanently
+- **Click outside**: When clicking outside the fretboard, the selection is cleared
 
-## Estructura del Proyecto
+## Project Structure
 
 ```
-guitarra/
-├── index.html      # Archivo principal HTML
-├── styles.css      # Estilos CSS
-├── script.js       # Lógica JavaScript
-└── README.md       # Este archivo
+guitar-notes/
+├── index.html      # Main HTML file
+├── styles.css      # CSS styles
+├── script.js       # JavaScript logic
+└── README.md       # This file
 ```
 
-## Tecnologías Utilizadas
+## Technologies Used
 
-- **HTML5**: Estructura semántica
-- **CSS3**: Estilos modernos con gradientes y animaciones
-- **JavaScript ES6+**: Lógica de la aplicación
-- **CSS Grid**: Layout responsive del mástil
-- **Flexbox**: Layout de controles y paneles
+- **HTML5**: Semantic structure
+- **CSS3**: Modern styles with gradients and animations
+- **JavaScript ES6+**: Application logic
+- **CSS Grid**: Responsive fretboard layout
+- **Flexbox**: Controls and panels layout
 
-## Características Técnicas
+## Technical Features
 
-- **Responsive Design**: Funciona en dispositivos móviles y desktop
-- **Accesibilidad**: Controles intuitivos y claros
-- **Performance**: Código optimizado y eficiente
-- **Cross-browser**: Compatible con navegadores modernos
+- **Responsive Design**: Works on mobile and desktop devices
+- **Accessibility**: Intuitive and clear controls
+- **Performance**: Optimized and efficient code
+- **Cross-browser**: Compatible with modern browsers
 
-## Notas Musicales
+## Musical Notes
 
-### Afinación Estándar (de la 1ª a la 6ª cuerda)
-- **1ª cuerda**: MI (E)
-- **2ª cuerda**: SI (B)
-- **3ª cuerda**: SOL (G)
-- **4ª cuerda**: RE (D)
-- **5ª cuerda**: LA (A)
-- **6ª cuerda**: MI (E)
+### Standard Tuning (from 1st to 6th string)
+- **1st string**: MI (E)
+- **2nd string**: SI (B)
+- **3rd string**: SOL (G)
+- **4th string**: RE (D)
+- **5th string**: LA (A)
+- **6th string**: MI (E)
 
-### Cálculo de Notas
-La aplicación calcula automáticamente las notas basándose en:
-1. La nota de la cuerda al aire
-2. El número de semitonos (trastes) desde la cuerda al aire
-3. La escala cromática de 12 notas
+### Note Calculation
+The application automatically calculates notes based on:
+1. The open string note
+2. The number of semitones (frets) from the open string
+3. The chromatic scale of 12 notes
 
-## Uso Educativo
+## Educational Use
 
-Esta aplicación es perfecta para:
-- **Principiantes**: Aprender las notas básicas del mástil
-- **Estudiantes**: Practicar la identificación de notas
-- **Profesores**: Enseñar teoría musical de manera visual
-- **Músicos**: Referencia rápida de notas
+This application is perfect for:
+- **Beginners**: Learn the basic notes of the fretboard
+- **Students**: Practice note identification
+- **Teachers**: Teach music theory visually
+- **Musicians**: Quick note reference
 
-## Contribuciones
+## Contributing
 
-Si quieres mejorar la aplicación, puedes:
-- Agregar más idiomas
-- Incluir más notaciones musicales
-- Añadir ejercicios interactivos
-- Implementar un modo de práctica
+If you want to improve the application, you can:
+- Add more languages
+- Include more musical notations
+- Add interactive exercises
+- Implement a practice mode
 
-## Licencia
+## License
 
-Este proyecto es de código abierto y está disponible para uso educativo y personal.
+This project is open source and available for educational and personal use.
