@@ -39,14 +39,15 @@
                     </div>
                     <div class="frets">
                         <!-- Los trastes se generarán dinámicamente -->
-                    </div>
-                    <div class="fretboard">
-                        <!-- Las notas se generarán dinámicamente -->
-                    </div>
+                    </div>                    
+                    <div class="fretboard" id="fretboard"></div>
                 </div>
-                <div class="fret-numbers">
-                    <!-- Los números de traste se generarán dinámicamente -->
-                </div>
+                <div class="fret-numbers" id="fret-numbers"></div>
+            </div>
+            
+            <!-- Nota flotante para el juego -->
+            <div id="floating-note" class="floating-note hidden">
+                <span id="floating-note-text"></span>
             </div>
 
             <div class="info-panel">

@@ -861,3 +861,67 @@ main {
         gap: 20px;
     }
 }
+
+/* Nota flotante para el juego */
+.floating-note {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 215, 0, 0.9);
+    color: #333;
+    font-size: 4rem;
+    font-weight: bold;
+    padding: 2rem 3rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    animation: floatingNoteAppear 0.3s ease-out;
+    backdrop-filter: blur(10px);
+    border: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+.floating-note.hidden {
+    display: none;
+}
+
+@keyframes floatingNoteAppear {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes floatingNoteDisappear {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+}
+
+.floating-note.disappearing {
+    animation: floatingNoteDisappear 0.3s ease-in forwards;
+}
+
+/* Responsive para la nota flotante */
+@media (max-width: 768px) {
+    .floating-note {
+        font-size: 3rem;
+        padding: 1.5rem 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .floating-note {
+        font-size: 2.5rem;
+        padding: 1rem 1.5rem;
+    }
+}

@@ -63,7 +63,8 @@ function showFirstNote() {
     const randomNote = config.notes[Math.floor(Math.random() * config.notes.length)];
     currentTargetNote = randomNote;
     
-    gameElements.targetNote.textContent = randomNote;
+    // Mostrar la nota flotante en lugar de la nota en la interfaz
+    showFloatingNote(randomNote);
     
     // Ocultar el feedback al mostrar la primera nota
     gameElements.gameFeedback.classList.add('hidden');
@@ -101,14 +102,17 @@ function generateNewNote() {
     const randomNote = config.notes[Math.floor(Math.random() * config.notes.length)];
     currentTargetNote = randomNote;
     
-    gameElements.targetNote.textContent = randomNote;
+    // Mostrar la nota flotante en lugar de la nota en la interfaz
+    showFloatingNote(randomNote);
+    
+    // Ocultar el mensaje de feedback
     gameElements.gameFeedback.classList.add('hidden');
     
     // Iniciar temporizador
     timeLeft = 3;
     updateTimer();
     
-    console.log('Nuevo timer iniciado para nota:', randomNote);
+    console.log('Nueva nota generada:', randomNote);
     
     gameTimer = setInterval(() => {
         timeLeft--;
@@ -154,6 +158,21 @@ function showFeedback(isCorrect, type = '') {
     }
     
     gameElements.gameFeedback.classList.remove('hidden');
+}
+
+function showFloatingNote(note) {
+    gameElements.floatingNoteText.textContent = note;
+    gameElements.floatingNote.classList.remove('hidden');
+    gameElements.floatingNote.classList.remove('disappearing');
+    
+    // Ocultar después de 1 segundo
+    setTimeout(() => {
+        gameElements.floatingNote.classList.add('disappearing');
+        setTimeout(() => {
+            gameElements.floatingNote.classList.add('hidden');
+            gameElements.floatingNote.classList.remove('disappearing');
+        }, 300);
+    }, 1000);
 }
 
 function nextRound() {
@@ -242,6 +261,10 @@ function checkNoteAnswer(clickedNote) {
 // Función para inicializar los elementos del juego
 function initGameElements(elements) {
     gameElements = elements;
+    
+    // Agregar elementos de la nota flotante
+    gameElements.floatingNote = document.getElementById('floating-note');
+    gameElements.floatingNoteText = document.getElementById('floating-note-text');
 }
 
 // Exportar funciones para uso en script.js
