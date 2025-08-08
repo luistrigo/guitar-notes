@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guitarra - Aprende las Notas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 id="title">Guitarra - Aprende las Notas</h1>
+            <button id="settings-btn" class="settings-btn">
+                <span class="settings-icon">⚙️</span>
+                <span id="settings-text">Configuración</span>
+            </button>
+        </header>
+
+        <main>
+            <div class="guitar-container">
+                <div class="guitar-neck">
+                    <div class="strings">
+                        <div class="string" data-string="1"></div>
+                        <div class="string" data-string="2"></div>
+                        <div class="string" data-string="3"></div>
+                        <div class="string" data-string="4"></div>
+                        <div class="string" data-string="5"></div>
+                        <div class="string" data-string="6"></div>
+                    </div>
+                    <div class="frets">
+                        <!-- Los trastes se generarán dinámicamente -->
+                    </div>
+                    <div class="fretboard">
+                        <!-- Las notas se generarán dinámicamente -->
+                    </div>
+                </div>
+                <div class="fret-numbers">
+                    <!-- Los números de traste se generarán dinámicamente -->
+                </div>
+            </div>
+
+            <div class="info-panel">
+                <div class="current-note">
+                    <h3 id="note-label">Nota Actual:</h3>
+                    <div id="current-note" class="note-display">-</div>
+                </div>
+                <div class="string-info">
+                    <h3 id="string-label">Cuerda:</h3>
+                    <div id="string-number">-</div>
+                </div>
+                <div class="fret-info">
+                    <h3 id="fret-label">Traste:</h3>
+                    <div id="fret-number">-</div>
+                </div>
+            </div>
+
+            <div class="instructions">
+                <p id="instructions-text">Haz clic en cualquier posición del mástil para ver la nota correspondiente</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal de Configuración -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Configuración</h2>
+                <button class="close-btn" id="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-group">
+                    <label for="modal-language">Idioma:</label>
+                    <select id="modal-language">
+                        <option value="es">Español</option>
+                        <option value="en">English</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label for="modal-notation">Notación:</label>
+                    <select id="modal-notation">
+                        <option value="spanish">DO RE MI FA</option>
+                        <option value="english">C D E F</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label for="show-fret-numbers">Mostrar números de traste:</label>
+                    <label class="switch">
+                        <input type="checkbox" id="show-fret-numbers" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="save-settings" class="save-btn">Guardar</button>
+                <button id="cancel-settings" class="cancel-btn">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
