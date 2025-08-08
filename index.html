@@ -11,6 +11,10 @@
         <header>
             <h1 id="title">Guitarra - Aprende las Notas</h1>
             <div class="header-buttons">
+                <button id="game-btn" class="game-btn">
+                    <span class="game-icon">🎮</span>
+                    <span id="game-text">Juego</span>
+                </button>
                 <button id="show-notes-btn" class="show-notes-btn">
                     <span class="notes-icon">🎵</span>
                     <span id="show-notes-text">Ver Notas</span>
@@ -63,6 +67,51 @@
             <div class="instructions">
                 <p id="instructions-text">Haz clic en cualquier posición del mástil para ver la nota correspondiente</p>
             </div>
+
+            <!-- Interfaz del Juego -->
+            <div id="game-interface" class="game-interface hidden">
+                <div class="game-header">
+                    <h2 id="game-title">¡Encuentra la Nota!</h2>
+                    <div class="game-stats">
+                        <span id="current-round">Ronda: 1/10</span>
+                        <span id="timer">⏱️ 3</span>
+                    </div>
+                </div>
+                
+                <div class="target-note-container">
+                    <div id="target-note" class="target-note">DO</div>
+                </div>
+                
+                <div class="game-feedback hidden" id="game-feedback">
+                    <span id="feedback-icon">😊</span>
+                    <span id="feedback-text">¡Correcto!</span>
+                </div>
+                
+                <div class="game-controls">
+                    <button id="start-game" class="start-game-btn">Iniciar Juego</button>
+                    <button id="stop-game" class="stop-game-btn hidden">Parar Juego</button>
+                </div>
+            </div>
+
+            <!-- Resultados del Juego -->
+            <div id="game-results" class="game-results hidden">
+                <h2>¡Juego Terminado!</h2>
+                <div class="results-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Aciertos:</span>
+                        <span id="correct-answers" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Fallos:</span>
+                        <span id="wrong-answers" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Tiempo Total:</span>
+                        <span id="total-time" class="stat-value">0s</span>
+                    </div>
+                </div>
+                <button id="play-again" class="play-again-btn">Jugar de Nuevo</button>
+            </div>
         </main>
     </div>
 
@@ -103,6 +152,7 @@
         </div>
     </div>
 
+    <script src="game.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

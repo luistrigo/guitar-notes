@@ -3,6 +3,7 @@ const translations = {
     es: {
         title: "Guitarra - Aprende las Notas",
         settings: "Configuración",
+        game: "Juego",
         showNotes: "Ver Notas",
         hideNotes: "Ocultar Notas",
         noteLabel: "Nota Actual:",
@@ -15,11 +16,25 @@ const translations = {
         spanishNotation: "DO RE MI FA",
         englishNotation: "C D E F",
         save: "Guardar",
-        cancel: "Cancelar"
+        cancel: "Cancelar",
+        // Traducciones del juego
+        findNote: "¡Encuentra la Nota!",
+        round: "Ronda",
+        startGame: "Iniciar Juego",
+        stopGame: "Parar Juego",
+        playAgain: "Jugar de Nuevo",
+        gameOver: "¡Juego Terminado!",
+        correct: "¡Correcto!",
+        incorrect: "¡Incorrecto!",
+        timeUp: "¡Se acabó el tiempo!",
+        correctAnswers: "Aciertos",
+        wrongAnswers: "Fallos",
+        totalTime: "Tiempo Total"
     },
     en: {
         title: "Guitar - Learn the Notes",
         settings: "Settings",
+        game: "Game",
         showNotes: "Show Notes",
         hideNotes: "Hide Notes",
         noteLabel: "Current Note:",
@@ -32,7 +47,20 @@ const translations = {
         spanishNotation: "DO RE MI FA",
         englishNotation: "C D E F",
         save: "Save",
-        cancel: "Cancel"
+        cancel: "Cancel",
+        // Game translations
+        findNote: "Find the Note!",
+        round: "Round",
+        startGame: "Start Game",
+        stopGame: "Stop Game",
+        playAgain: "Play Again",
+        gameOver: "Game Over!",
+        correct: "Correct!",
+        incorrect: "Incorrect!",
+        timeUp: "Time's up!",
+        correctAnswers: "Correct",
+        wrongAnswers: "Wrong",
+        totalTime: "Total Time"
     }
 };
 
@@ -57,6 +85,12 @@ let currentNote = null;
 let currentString = null;
 let currentFret = null;
 
+// Hacer las variables accesibles globalmente para game.js
+window.currentLanguage = currentLanguage;
+window.currentNotation = currentNotation;
+window.noteConfig = noteConfig;
+window.translations = translations;
+
 // Elementos del DOM
 const elements = {
     title: document.getElementById('title'),
@@ -69,6 +103,8 @@ const elements = {
     fretNumber: document.getElementById('fret-number'),
     showNotesBtn: document.getElementById('show-notes-btn'),
     showNotesText: document.getElementById('show-notes-text'),
+    gameBtn: document.getElementById('game-btn'),
+    gameText: document.getElementById('game-text'),
     settingsBtn: document.getElementById('settings-btn'),
     settingsText: document.getElementById('settings-text'),
     modal: document.getElementById('settings-modal'),
@@ -82,7 +118,23 @@ const elements = {
     guitarNeck: document.querySelector('.guitar-neck'),
     frets: document.querySelector('.frets'),
     fretboard: document.querySelector('.fretboard'),
-    fretNumbers: document.querySelector('.fret-numbers')
+    fretNumbers: document.querySelector('.fret-numbers'),
+    // Elementos del juego
+    gameInterface: document.getElementById('game-interface'),
+    gameResults: document.getElementById('game-results'),
+    gameTitle: document.getElementById('game-title'),
+    currentRound: document.getElementById('current-round'),
+    timer: document.getElementById('timer'),
+    targetNote: document.getElementById('target-note'),
+    gameFeedback: document.getElementById('game-feedback'),
+    feedbackIcon: document.getElementById('feedback-icon'),
+    feedbackText: document.getElementById('feedback-text'),
+    startGameBtn: document.getElementById('start-game'),
+    stopGameBtn: document.getElementById('stop-game'),
+    playAgainBtn: document.getElementById('play-again'),
+    correctAnswers: document.getElementById('correct-answers'),
+    wrongAnswers: document.getElementById('wrong-answers'),
+    totalTime: document.getElementById('total-time')
 };
 
 // Inicialización
@@ -96,6 +148,11 @@ function initializeApp() {
     generateFretNumbers();
     generateFretboard();
     updateLanguage();
+    
+    // Inicializar el módulo del juego
+    if (window.gameModule) {
+        window.gameModule.initGameElements(elements);
+    }
 }
 
 function setupEventListeners() {
@@ -107,6 +164,12 @@ function setupEventListeners() {
     
     // Event listener para mostrar/ocultar notas
     elements.showNotesBtn.addEventListener('click', toggleShowAllNotes);
+    
+    // Event listeners del juego
+    elements.gameBtn.addEventListener('click', window.gameModule.toggleGameMode);
+    elements.startGameBtn.addEventListener('click', window.gameModule.startGame);
+    elements.stopGameBtn.addEventListener('click', window.gameModule.stopGame);
+    elements.playAgainBtn.addEventListener('click', window.gameModule.startGame);
     
     // Cerrar modal al hacer clic fuera
     window.addEventListener('click', function(e) {
@@ -254,12 +317,19 @@ function updateLanguage() {
     
     elements.title.textContent = t.title;
     elements.settingsText.textContent = t.settings;
+    elements.gameText.textContent = t.game;
     elements.showNotesText.textContent = showAllNotes ? t.hideNotes : t.showNotes;
     elements.noteLabel.textContent = t.noteLabel;
     elements.stringLabel.textContent = t.stringLabel;
     elements.fretLabel.textContent = t.fretLabel;
     elements.instructionsText.textContent = t.instructions;
     elements.modalTitle.textContent = t.settings;
+    
+    // Actualizar elementos del juego
+    elements.gameTitle.textContent = t.findNote;
+    elements.startGameBtn.textContent = t.startGame;
+    elements.stopGameBtn.textContent = t.stopGame;
+    elements.playAgainBtn.textContent = t.playAgain;
     
     // Actualizar etiquetas de la modal
     const modalLabels = document.querySelectorAll('.setting-group label');
@@ -275,6 +345,11 @@ function updateLanguage() {
     const notationOptions = elements.modalNotation.querySelectorAll('option');
     notationOptions[0].textContent = t.spanishNotation;
     notationOptions[1].textContent = t.englishNotation;
+    
+    // Actualizar UI del juego si está activo
+    if (window.gameModule && window.gameModule.isGameActive()) {
+        window.gameModule.updateGameUI();
+    }
 }
 
 function updateNotation() {
@@ -394,5 +469,58 @@ function toggleShowAllNotes() {
     // Limpiar selección actual si se ocultan las notas
     if (!showAllNotes) {
         clearSelection();
+    }
+}
+
+
+
+// Modificar handleNoteClick para incluir la lógica del juego
+function handleNoteClick(element) {
+    // Limpiar todas las posiciones primero
+    document.querySelectorAll('.note-position').forEach(pos => {
+        pos.classList.remove('active');
+        // Limpiar estilos inline excepto si showAllNotes está activo
+        if (!showAllNotes) {
+            pos.style.color = 'transparent';
+            pos.style.background = 'transparent';
+        } else {
+            pos.style.color = '#333';
+            pos.style.background = 'rgba(255,255,255,0.1)';
+        }
+        pos.style.transform = '';
+        pos.style.boxShadow = '';
+    });
+    
+    // Agregar clase active a la posición clickeada
+    element.classList.add('active');
+    
+    // Aplicar estilo dorado a la nota seleccionada
+    element.style.background = 'rgba(255, 215, 0, 0.8)';
+    element.style.color = '#333';
+    element.style.transform = 'scale(1.1)';
+    element.style.boxShadow = '0 3px 8px rgba(0,0,0,0.3)';
+    
+    // Efecto visual en la cuerda correspondiente
+    const stringNumber = parseInt(element.dataset.string);
+    const stringElement = document.querySelector(`[data-string="${stringNumber}"]`);
+    if (stringElement) {
+        stringElement.style.transform = 'scaleY(1.2)';
+        stringElement.style.boxShadow = '0 3px 8px rgba(255,215,0,0.6)';
+        setTimeout(() => {
+            stringElement.style.transform = '';
+            stringElement.style.boxShadow = '';
+        }, 300);
+    }
+    
+    // Actualizar información
+    currentString = parseInt(element.dataset.string);
+    currentFret = parseInt(element.dataset.fret);
+    currentNote = element.dataset.note;
+    
+    updateInfoPanel();
+    
+    // Lógica del juego
+    if (window.gameModule && window.gameModule.isGameActive()) {
+        window.gameModule.checkNoteAnswer(currentNote);
     }
 }
