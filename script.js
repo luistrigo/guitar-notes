@@ -18,7 +18,7 @@ const translations = {
         save: "Guardar",
         cancel: "Cancelar",
         // Traducciones del juego
-        findNote: "¡Encuentra la Nota!",
+        findNote: "¡Encuentra la Nota en la Cuerda Específica!",
         round: "Ronda",
         startGame: "Iniciar Juego",
         stopGame: "Parar Juego",
@@ -49,7 +49,7 @@ const translations = {
         save: "Save",
         cancel: "Cancel",
         // Game translations
-        findNote: "Find the Note!",
+        findNote: "Find the Note on the Specific String!",
         round: "Round",
         startGame: "Start Game",
         stopGame: "Stop Game",
@@ -228,7 +228,7 @@ function generateFretboard() {
             // Aplicar estado inicial de mostrar todas las notas
             if (showAllNotes) {
                 notePosition.style.color = '#333';
-                notePosition.style.background = 'rgba(255,255,255,0.1)';
+                notePosition.style.background = 'rgba(255,255,255,0.5)';
             }
             
             // Event listener para cada posición
@@ -374,7 +374,7 @@ function clearSelection() {
             pos.style.background = 'transparent';
         } else {
             pos.style.color = '#333';
-            pos.style.background = 'rgba(255,255,255,0.1)';
+            pos.style.background = 'rgba(255,255,255,0.5)';
         }
         pos.style.transform = '';
         pos.style.boxShadow = '';
@@ -448,7 +448,7 @@ function toggleShowAllNotes() {
     notePositions.forEach(position => {
         if (showAllNotes) {
             position.style.color = '#333';
-            position.style.background = 'rgba(255,255,255,0.1)';
+            position.style.background = 'rgba(255,255,255,1)';
         } else {
             position.style.color = 'transparent';
             position.style.background = 'transparent';
@@ -510,6 +510,6 @@ function handleNoteClick(element) {
     
     // Lógica del juego
     if (window.gameModule && window.gameModule.isGameActive()) {
-        window.gameModule.checkNoteAnswer(currentNote);
+        window.gameModule.checkNoteAnswer(currentNote, currentString);
     }
 }
