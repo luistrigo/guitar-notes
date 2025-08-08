@@ -413,9 +413,9 @@ main {
     cursor: pointer;
     transition: all 0.2s ease;
     border-radius: 50%;
-    margin: 5px;
+    margin: 3px;
     font-weight: bold;
-    font-size: 12px;
+    font-size: 10px;
     color: transparent;
     background: transparent;
 }
@@ -423,14 +423,14 @@ main {
 .note-position:hover {
     background: rgba(255, 255, 255, 0.3);
     color: #333;
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 .note-position.active {
     background: rgba(255, 215, 0, 0.8);
     color: #333;
-    transform: scale(1.2);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transform: scale(1.1);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
 }
 
 .info-panel {
@@ -482,12 +482,12 @@ main {
 /* Responsive design */
 @media (max-width: 768px) {
     .container {
-        padding: 15px;
+        padding: 20px;
     }
     
     .guitar-neck {
         min-width: 100%;
-        padding: 10px;
+        padding: 15px;
         margin: 0;
     }
     
@@ -505,7 +505,7 @@ main {
     
     .fret-numbers {
         max-width: 100%;
-        padding: 0 10px;
+        padding: 0 15px;
         margin: 0;
     }
     
@@ -524,30 +524,45 @@ main {
         flex-direction: column;
         gap: 15px;
         margin: 0;
+        padding: 20px;
     }
     
     #title {
         font-size: 2rem;
     }
+    
+    main {
+        gap: 25px;
+    }
 }
 
 @media (max-width: 480px) {
     .container {
-        padding: 10px;
+        padding: 15px;
+    }
+    
+    main {
+        gap: 20px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    
+    .guitar-container {
+        width: 100%;
     }
     
     .guitar-neck {
         min-width: 100%;
-        padding: 10px;
+        padding: 15px;
         margin: 0;
     }
     
     .fret {
-        width: 30px;
+        width: 1fr;
     }
     
     .fretboard {
-        grid-template-columns: repeat(13, 30px);
+        grid-template-columns: repeat(13, 1fr);
     }
     
     .string {
@@ -555,23 +570,47 @@ main {
     }
     
     .fret-numbers {
-        padding: 0 5px;
+        padding: 0 10px;
         margin: 0;
     }
     
     .fret-number {
         font-size: 10px;
-        padding: 4px 6px;
+        padding: 5px 6px;
         min-width: 16px;
     }
     
     .note-position {
-        font-size: 10px;
-        margin: 2px;
+        font-size: 8px;
+        margin: 0 0 0 0;
+        margin-top: 10px;
+        height: 30px;
     }
     
     .info-panel {
         margin: 0;
+        padding: 20px;
+    }
+}
+
+/* Móvil en horizontal */
+@media (max-width: 480px) and (orientation: landscape) {
+    .strings {
+        height: 100px;
+    }
+    
+    .guitar-neck {
+        padding: 10px;
+    }
+    
+    .note-position {
+        margin-top: 5px;
+        height: 25px;
+    }
+    
+    .info-panel {
         padding: 15px;
+        flex-direction: row;
+        gap: 20px;
     }
 }
