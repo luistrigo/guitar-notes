@@ -749,8 +749,20 @@ main {
     }
     
     .info-panel {
+        padding: 15px;
+        flex-direction: row;
+        gap: 20px;
         margin: 0;
         padding: 20px;
+    }
+    .current-note {
+        min-width: 100px;
+    }
+    .string-info {
+        min-width: 100px;
+    }
+    .fret-info {    
+        min-width: 100px;
     }
 }
 
