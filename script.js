@@ -420,7 +420,7 @@ function showCorrectPositionOnFretboard() {
             stringElement.style.boxShadow = '0 3px 8px rgba(220, 53, 69, 0.8)';
         }
         
-        // Restaurar después de 200 milisegundos
+        // Restaurar después de 1 segundo (aumentado para que se vea mejor)
         setTimeout(() => {
             correctPosition.style.background = '';
             correctPosition.style.color = '';
@@ -435,6 +435,9 @@ function showCorrectPositionOnFretboard() {
         }, 1000);
     }
 }
+
+// Hacer la función disponible globalmente
+window.showCorrectPositionOnFretboard = showCorrectPositionOnFretboard;
 
 // Event listener para limpiar selección al hacer clic fuera del mástil
 document.addEventListener('click', function(e) {

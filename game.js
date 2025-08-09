@@ -94,11 +94,22 @@ function showFirstNote() {
     // Ocultar el feedback al mostrar la primera nota
     gameElements.gameFeedback.classList.add('hidden');
     
-    // Mostrar la nota pero no iniciar el timer hasta que el usuario haga clic
+    // Iniciar temporizador para la primera nota
     timeLeft = 10;
     updateTimer();
     
-    console.log('Primera nota mostrada:', randomNote, 'en cuerda', randomString, '- Timer no iniciado');
+    console.log('Primera nota mostrada:', randomNote, 'en cuerda', randomString, '- Timer iniciado');
+    
+    gameTimer = setInterval(() => {
+        timeLeft--;
+        updateTimer();
+        
+        if (timeLeft <= 0) {
+            clearInterval(gameTimer);
+            gameTimer = null;
+            handleTimeUp();
+        }
+    }, 1000);
 }
 
 function stopGame() {
@@ -160,11 +171,17 @@ function handleTimeUp() {
     wrongAnswers++;
     showCorrectNote();
     showFeedback(false, 'timeUp');
+    
+    // Mostrar también la posición correcta en el mástil
+    if (window.showCorrectPositionOnFretboard) {
+        window.showCorrectPositionOnFretboard();
+    }
+    
     setTimeout(() => {
         if (gameActive) {
             nextRound();
         }
-    }, 1500);
+    }, 2000); // Aumentado a 2 segundos para que se vea mejor la nota correcta
 }
 
 function showFeedback(isCorrect, type = '') {
@@ -223,7 +240,7 @@ function showCorrectNote() {
     gameElements.floatingNote.classList.remove('hidden');
     gameElements.floatingNote.classList.remove('disappearing');
     
-    // Ocultar después de 200 milisegundos
+    // Ocultar después de 1 segundo (aumentado de 200ms para que se vea mejor)
     setTimeout(() => {
         gameElements.floatingNote.classList.add('disappearing');
         setTimeout(() => {
@@ -235,7 +252,7 @@ function showCorrectNote() {
             gameElements.floatingNote.style.color = '#333';
             gameElements.floatingNote.style.border = '3px solid rgba(255, 255, 255, 0.2)';
         }, 300);
-    }, 200);
+    }, 1000);
 }
 
 function nextRound() {
