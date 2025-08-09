@@ -164,7 +164,7 @@ function generateNewNote() {
 }
 
 function updateTimer() {
-    gameElements.timer.textContent = `⏱️ ${timeLeft}`;
+    gameElements.timer.textContent = `${timeLeft}`;
 }
 
 function handleTimeUp() {
