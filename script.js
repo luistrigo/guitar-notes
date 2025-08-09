@@ -29,7 +29,9 @@ const translations = {
         timeUp: "¡Se acabó el tiempo!",
         correctAnswers: "Aciertos",
         wrongAnswers: "Fallos",
-        totalTime: "Tiempo Total"
+        totalTime: "Tiempo Total",
+        filterByNote: "Filtrar por nota:",
+        allNotes: "Todas las notas"
     },
     en: {
         title: "Guitar - Learn the Notes",
@@ -60,7 +62,9 @@ const translations = {
         timeUp: "Time's up!",
         correctAnswers: "Correct",
         wrongAnswers: "Wrong",
-        totalTime: "Total Time"
+        totalTime: "Total Time",
+        filterByNote: "Filter by note:",
+        allNotes: "All notes"
     }
 };
 
@@ -135,6 +139,9 @@ const elements = {
     totalTime: document.getElementById('total-time'),
     headerButtons: document.getElementById('header-buttons'),
     exitGameBtn: document.getElementById('exit-game'),
+    noteSelector: document.getElementById('note-selector'),
+    noteFilter: document.getElementById('note-filter'),
+    noteFilterLabel: document.getElementById('note-filter-label'),
 };
 
 // Inicialización
@@ -164,6 +171,13 @@ function setupEventListeners() {
     
     // Event listener para mostrar/ocultar notas
     if (elements.showNotesBtn) elements.showNotesBtn.addEventListener('click', toggleShowAllNotes);
+    
+    // Event listener para el selector de notas
+    if (elements.noteFilter) elements.noteFilter.addEventListener('change', function() {
+        if (showAllNotes) {
+            filterNotesByNote(this.value);
+        }
+    });
     
     // Event listeners del juego
     if (elements.gameBtn) elements.gameBtn.addEventListener('click', window.gameModule.toggleGameMode);
@@ -334,6 +348,13 @@ function updateLanguage() {
     elements.instructionsText.textContent = t.instructions;
     elements.modalTitle.textContent = t.settings;
     
+    // Actualizar elementos del selector de notas
+    if (elements.noteFilterLabel) elements.noteFilterLabel.textContent = t.filterByNote;
+    if (elements.noteFilter) {
+        const allNotesOption = elements.noteFilter.querySelector('option[value=""]');
+        if (allNotesOption) allNotesOption.textContent = t.allNotes;
+    }
+    
     // Actualizar elementos del juego
     if (elements.startGameBtn) elements.startGameBtn.textContent = t.startGame;
     if (elements.stopGameBtn) elements.stopGameBtn.textContent = t.stopGame;
@@ -363,6 +384,31 @@ function updateLanguage() {
 function updateNotation() {
     // Esta función se llama cuando cambia la notación
     // La lógica principal está en generateFretboard()
+}
+
+function populateNoteSelector() {
+    if (!elements.noteFilter) return;
+    
+    const config = noteConfig[currentNotation];
+    const currentValue = elements.noteFilter.value;
+    
+    // Limpiar opciones existentes excepto la primera
+    while (elements.noteFilter.children.length > 1) {
+        elements.noteFilter.removeChild(elements.noteFilter.lastChild);
+    }
+    
+    // Agregar opciones para cada nota
+    config.notes.forEach(note => {
+        const option = document.createElement('option');
+        option.value = note;
+        option.textContent = note;
+        elements.noteFilter.appendChild(option);
+    });
+    
+    // Restaurar el valor seleccionado si existe
+    if (currentValue && config.notes.includes(currentValue)) {
+        elements.noteFilter.value = currentValue;
+    }
 }
 
 // Función para obtener la nota en una posición específica
@@ -439,6 +485,18 @@ function showCorrectPositionOnFretboard() {
 // Hacer la función disponible globalmente
 window.showCorrectPositionOnFretboard = showCorrectPositionOnFretboard;
 
+function filterNotesByNote(selectedNote) {
+    const notePositions = document.querySelectorAll('.note-position');
+    
+    notePositions.forEach(position => {
+        position.classList.remove('filtered');
+        
+        if (selectedNote && position.dataset.note === selectedNote) {
+            position.classList.add('filtered');
+        }
+    });
+}
+
 // Event listener para limpiar selección al hacer clic fuera del mástil
 document.addEventListener('click', function(e) {
     if (!e.target.closest('.guitar-neck') && !e.target.closest('.info-panel')) {
@@ -490,6 +548,11 @@ function saveSettings() {
         window.currentNotation = currentNotation;
         generateFretboard();
         
+        // Actualizar el selector de notas si está visible
+        if (showAllNotes) {
+            populateNoteSelector();
+        }
+        
         // Si el juego está activo, reiniciarlo para usar la nueva notación
         if (window.gameModule && window.gameModule.isGameActive()) {
             window.gameModule.stopGame();
@@ -515,6 +578,16 @@ function toggleShowAllNotes() {
     // Actualizar el texto del botón
     updateLanguage();
     
+    // Mostrar/ocultar selector de notas
+    if (elements.noteSelector) {
+        elements.noteSelector.classList.toggle('hidden', !showAllNotes);
+    }
+    
+    // Poblar el selector si se está mostrando
+    if (showAllNotes) {
+        populateNoteSelector();
+    }
+    
     // Mostrar/ocultar todas las notas
     const notePositions = document.querySelectorAll('.note-position');
     notePositions.forEach(position => {
@@ -525,11 +598,17 @@ function toggleShowAllNotes() {
             position.style.color = 'transparent';
             position.style.background = 'transparent';
         }
+        // Limpiar filtros
+        position.classList.remove('filtered');
     });
     
     // Limpiar selección actual si se ocultan las notas
     if (!showAllNotes) {
         clearSelection();
+        // Limpiar filtro
+        if (elements.noteFilter) {
+            elements.noteFilter.value = '';
+        }
     }
 }
 

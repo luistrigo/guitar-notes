@@ -607,6 +607,26 @@ main {
     box-shadow: 0 3px 6px rgba(0,0,0,0.3);
 }
 
+.note-position.filtered {
+    background: rgba(102, 126, 234, 0.8) !important;
+    color: white !important;
+    transform: scale(1.15);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.6);
+    z-index: 5;
+    animation: pulse-filtered 1.5s infinite;
+}
+
+@keyframes pulse-filtered {
+    0%, 100% { 
+        transform: scale(1.15);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.6);
+    }
+    50% { 
+        transform: scale(1.2);
+        box-shadow: 0 6px 16px rgba(102, 126, 234, 0.8);
+    }
+}
+
 .info-panel {
     display: flex;
     gap: 30px;
@@ -653,6 +673,58 @@ main {
     line-height: 1.6;
 }
 
+/* Selector de notas */
+.note-selector {
+    background: rgba(255,255,255,0.95);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.note-selector.hidden {
+    display: none;
+}
+
+.selector-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.selector-container label {
+    font-weight: 600;
+    color: #333;
+    font-size: 16px;
+}
+
+.selector-container select {
+    padding: 10px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 14px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 150px;
+}
+
+.selector-container select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.selector-container select:hover {
+    border-color: #667eea;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
     .container {
@@ -689,6 +761,20 @@ main {
         gap: 15px;
         margin: 0;
         padding: 20px;
+    }
+    
+    .note-selector {
+        padding: 15px;
+        margin: 15px 0;
+    }
+    
+    .selector-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .selector-container select {
+        min-width: 120px;
     }
     
     #title {
