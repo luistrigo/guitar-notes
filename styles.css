@@ -68,6 +68,7 @@ select:hover {
     gap: 15px;
     justify-content: center;
     flex-wrap: wrap;
+    align-items: center;
 }
 
 .header-buttons button.hidden {
