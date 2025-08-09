@@ -46,7 +46,6 @@
             <!-- Resultados del Juego en el Header -->
             <div id="game-results" class="game-results-compact hidden">
                 <div class="results-header-compact">
-                    <h3 class="results-title-compact">¡Juego Terminado!</h3>
                     <div class="results-stats-compact">
                         <span class="stat-item-compact">
                             <span class="stat-label-compact">Aciertos:</span>
@@ -61,7 +60,10 @@
                             <span id="total-time" class="stat-value-compact">0s</span>
                         </span>
                     </div>
-                    <button id="play-again" class="play-again-btn-compact">Jugar de Nuevo</button>
+                    <div class="results-controls-compact">
+                        <button id="play-again" class="play-again-btn-compact">Jugar de Nuevo</button>
+                        <button id="exit-game" class="exit-game-btn-compact">Salir</button>
+                    </div>
                 </div>
             </div>
         </header>

@@ -945,14 +945,10 @@ main {
 
 /* Resultados del Juego Compactos en el Header */
 .game-results-compact {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
     background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
     color: white;
     padding: 15px 20px;
-    border-radius: 0 0 15px 15px;
+    border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     z-index: 100;
     animation: slideDown 0.3s ease-out;
@@ -964,17 +960,10 @@ main {
 
 .results-header-compact {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
     gap: 15px;
-}
-
-.results-title-compact {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 700;
-    text-align: center;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
 .results-stats-compact {
@@ -1008,7 +997,14 @@ main {
     color: #fff;
 }
 
-.play-again-btn-compact {
+.results-controls-compact {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.play-again-btn-compact, .exit-game-btn-compact {
     background: rgba(255,255,255,0.2);
     color: white;
     border: 2px solid rgba(255,255,255,0.3);
@@ -1021,10 +1017,19 @@ main {
     backdrop-filter: blur(5px);
 }
 
-.play-again-btn-compact:hover {
+.play-again-btn-compact:hover, .exit-game-btn-compact:hover {
     background: rgba(255,255,255,0.3);
     transform: translateY(-1px);
     box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
+.exit-game-btn-compact {
+    background: rgba(220, 53, 69, 0.8);
+    border-color: rgba(220, 53, 69, 0.5);
+}
+
+.exit-game-btn-compact:hover {
+    background: rgba(220, 53, 69, 0.9);
 }
 
 /* Responsive para los resultados compactos */
@@ -1046,7 +1051,7 @@ main {
         font-size: 14px;
     }
     
-    .play-again-btn-compact {
+    .play-again-btn-compact, .exit-game-btn-compact {
         font-size: 12px;
         padding: 8px 16px;
     }
@@ -1055,10 +1060,6 @@ main {
 @media (max-width: 480px) {
     .game-results-compact {
         padding: 10px 15px;
-    }
-    
-    .results-title-compact {
-        font-size: 16px;
     }
     
     .results-stats-compact {
@@ -1078,7 +1079,7 @@ main {
         font-size: 12px;
     }
     
-    .play-again-btn-compact {
+    .play-again-btn-compact, .exit-game-btn-compact {
         font-size: 11px;
         padding: 6px 12px;
     }

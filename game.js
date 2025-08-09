@@ -189,8 +189,11 @@ function showFeedback(isCorrect, type = '') {
 
 function showFloatingNote(note, string) {
     const t = window.translations[window.currentLanguage];
-    const stringNames = ['', '1ª', '2ª', '3ª', '4ª', '5ª', '6ª']; // Nombres de las cuerdas
-    gameElements.floatingNoteText.textContent = `${note} - ${stringNames[string]} cuerda`;
+    const stringNames = window.currentLanguage === 'es' ? 
+        ['', '1ª', '2ª', '3ª', '4ª', '5ª', '6ª'] : 
+        ['', '1st', '2nd', '3rd', '4th', '5th', '6th'];
+    const stringLabel = window.currentLanguage === 'es' ? 'cuerda' : 'string';
+    gameElements.floatingNoteText.textContent = `${note} - ${stringNames[string]} ${stringLabel}`;
     gameElements.floatingNote.classList.remove('hidden');
     gameElements.floatingNote.classList.remove('disappearing');
     
@@ -206,14 +209,17 @@ function showFloatingNote(note, string) {
 
 function showCorrectNote() {
     const t = window.translations[window.currentLanguage];
-    const stringNames = ['', '1ª', '2ª', '3ª', '4ª', '5ª', '6ª']; // Nombres de las cuerdas
+    const stringNames = window.currentLanguage === 'es' ? 
+        ['', '1ª', '2ª', '3ª', '4ª', '5ª', '6ª'] : 
+        ['', '1st', '2nd', '3rd', '4th', '5th', '6th'];
+    const stringLabel = window.currentLanguage === 'es' ? 'cuerda' : 'string';
     
     // Cambiar el estilo de la nota flotante para mostrar la respuesta correcta
     gameElements.floatingNote.style.background = 'rgba(220, 53, 69, 0.95)'; // Rojo
     gameElements.floatingNote.style.color = 'white'; // Texto blanco
     gameElements.floatingNote.style.border = '3px solid rgba(255, 255, 255, 0.3)';
     
-    gameElements.floatingNoteText.textContent = `${currentTargetNote} - ${stringNames[currentTargetString]} cuerda`;
+    gameElements.floatingNoteText.textContent = `${currentTargetNote} - ${stringNames[currentTargetString]} ${stringLabel}`;
     gameElements.floatingNote.classList.remove('hidden');
     gameElements.floatingNote.classList.remove('disappearing');
     

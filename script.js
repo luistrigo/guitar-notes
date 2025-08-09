@@ -134,6 +134,7 @@ const elements = {
     wrongAnswers: document.getElementById('wrong-answers'),
     totalTime: document.getElementById('total-time'),
     headerButtons: document.getElementById('header-buttons'),
+    exitGameBtn: document.getElementById('exit-game'),
 };
 
 // Inicialización
@@ -169,6 +170,14 @@ function setupEventListeners() {
     if (elements.startGameBtn) elements.startGameBtn.addEventListener('click', window.gameModule.startGame);
     if (elements.stopGameBtn) elements.stopGameBtn.addEventListener('click', window.gameModule.stopGame);
     if (elements.playAgainBtn) elements.playAgainBtn.addEventListener('click', window.gameModule.startGame);
+    
+    // Event listener para el botón de salir del juego
+    const exitGameBtn = document.getElementById('exit-game');
+    if (exitGameBtn) exitGameBtn.addEventListener('click', () => {
+        if (window.gameModule) {
+            window.gameModule.stopGame();
+        }
+    });
     
     // Cerrar modal al hacer clic fuera
     window.addEventListener('click', function(e) {
@@ -461,12 +470,30 @@ function saveSettings() {
     // Aplicar cambios
     if (newLanguage !== currentLanguage) {
         currentLanguage = newLanguage;
+        window.currentLanguage = currentLanguage;
         updateLanguage();
+        
+        // Si el juego está activo, reiniciarlo para usar el nuevo idioma
+        if (window.gameModule && window.gameModule.isGameActive()) {
+            window.gameModule.stopGame();
+            setTimeout(() => {
+                window.gameModule.startGame();
+            }, 100);
+        }
     }
     
     if (newNotation !== currentNotation) {
         currentNotation = newNotation;
+        window.currentNotation = currentNotation;
         generateFretboard();
+        
+        // Si el juego está activo, reiniciarlo para usar la nueva notación
+        if (window.gameModule && window.gameModule.isGameActive()) {
+            window.gameModule.stopGame();
+            setTimeout(() => {
+                window.gameModule.startGame();
+            }, 100);
+        }
     }
     
 
