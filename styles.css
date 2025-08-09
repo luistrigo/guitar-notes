@@ -71,7 +71,7 @@ select:hover {
 }
 
 .header-buttons button.hidden {
-    display: none;
+    display: none !important;
 }
 
 .header-buttons.hidden {
@@ -673,18 +673,18 @@ main {
     line-height: 1.6;
 }
 
-/* Selector de notas */
-.note-selector {
+/* Selector de notas en el header */
+.note-selector-header {
     background: rgba(255,255,255,0.95);
     border-radius: 15px;
-    padding: 20px;
-    margin: 20px 0;
+    padding: 5px 15px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     text-align: center;
     transition: all 0.3s ease;
+    animation: slideDown 0.3s ease-out;
 }
 
-.note-selector.hidden {
+.note-selector-header.hidden {
     display: none;
 }
 
@@ -763,9 +763,9 @@ main {
         padding: 20px;
     }
     
-    .note-selector {
-        padding: 15px;
-        margin: 15px 0;
+    .note-selector-header {
+        padding: 10px 15px;
+        margin: 10px 0;
     }
     
     .selector-container {

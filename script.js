@@ -583,6 +583,14 @@ function toggleShowAllNotes() {
         elements.noteSelector.classList.toggle('hidden', !showAllNotes);
     }
     
+    // Ocultar/mostrar botones de juego y configuración
+    if (elements.gameBtn) {
+        elements.gameBtn.classList.toggle('hidden', showAllNotes);
+    }
+    if (elements.settingsBtn) {
+        elements.settingsBtn.classList.toggle('hidden', showAllNotes);
+    }
+    
     // Poblar el selector si se está mostrando
     if (showAllNotes) {
         populateNoteSelector();

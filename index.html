@@ -38,8 +38,18 @@
                     </svg>
                     <span id="settings-text">Configuración</span>
                 </button>
+                 <!-- Selector de notas en el header (solo visible cuando se muestran todas las notas) -->
+                <div id="note-selector" class="note-selector-header hidden">
+                    <div class="selector-container">
+                        <label for="note-filter" id="note-filter-label">Filtrar por nota:</label>
+                        <select id="note-filter">
+                            <option value="">Todas las notas</option>
+                        </select>
+                    </div>
+                </div>
             </div>
             
+           
             <!-- Interfaz del Juego en el Header -->
             <div id="game-interface" class="game-interface hidden">
                 <div class="game-header-compact">
@@ -116,16 +126,6 @@
                     <div class="fretboard" id="fretboard"></div>
             </div>
         </div>
-            
-            <!-- Selector de notas (solo visible cuando se muestran todas las notas) -->
-            <div id="note-selector" class="note-selector hidden">
-                <div class="selector-container">
-                    <label for="note-filter" id="note-filter-label">Filtrar por nota:</label>
-                    <select id="note-filter">
-                        <option value="">Todas las notas</option>
-                    </select>
-                </div>
-            </div>
             
             <!-- Nota flotante para el juego -->
             <div id="floating-note" class="floating-note hidden">
