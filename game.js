@@ -158,6 +158,7 @@ function updateTimer() {
 
 function handleTimeUp() {
     wrongAnswers++;
+    showCorrectNote();
     showFeedback(false, 'timeUp');
     setTimeout(() => {
         if (gameActive) {
@@ -201,6 +202,34 @@ function showFloatingNote(note, string) {
             gameElements.floatingNote.classList.remove('disappearing');
         }, 300);
     }, 1000);
+}
+
+function showCorrectNote() {
+    const t = window.translations[window.currentLanguage];
+    const stringNames = ['', '1ª', '2ª', '3ª', '4ª', '5ª', '6ª']; // Nombres de las cuerdas
+    
+    // Cambiar el estilo de la nota flotante para mostrar la respuesta correcta
+    gameElements.floatingNote.style.background = 'rgba(220, 53, 69, 0.95)'; // Rojo
+    gameElements.floatingNote.style.color = 'white'; // Texto blanco
+    gameElements.floatingNote.style.border = '3px solid rgba(255, 255, 255, 0.3)';
+    
+    gameElements.floatingNoteText.textContent = `${currentTargetNote} - ${stringNames[currentTargetString]} cuerda`;
+    gameElements.floatingNote.classList.remove('hidden');
+    gameElements.floatingNote.classList.remove('disappearing');
+    
+    // Ocultar después de 200 milisegundos
+    setTimeout(() => {
+        gameElements.floatingNote.classList.add('disappearing');
+        setTimeout(() => {
+            gameElements.floatingNote.classList.add('hidden');
+            gameElements.floatingNote.classList.remove('disappearing');
+            
+            // Restaurar el estilo original
+            gameElements.floatingNote.style.background = 'rgba(255, 215, 0, 0.9)';
+            gameElements.floatingNote.style.color = '#333';
+            gameElements.floatingNote.style.border = '3px solid rgba(255, 255, 255, 0.2)';
+        }, 300);
+    }, 200);
 }
 
 function nextRound() {
@@ -279,6 +308,7 @@ function checkNoteAnswer(clickedNote, clickedString) {
     } else {
         console.log('Falló. Nota:', clickedNote, 'Cuerda:', clickedString, 'Objetivo:', currentTargetNote, 'Cuerda objetivo:', currentTargetString);
         wrongAnswers++;
+        showCorrectNote();
         showFeedback(false);
         setTimeout(() => {
             if (gameActive) {
@@ -305,5 +335,7 @@ window.gameModule = {
     stopGame,
     checkNoteAnswer,
     initGameElements,
-    isGameActive: () => gameActive
+    isGameActive: () => gameActive,
+    getCurrentTargetNote: () => currentTargetNote,
+    getCurrentTargetString: () => currentTargetString
 };

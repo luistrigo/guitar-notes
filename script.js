@@ -386,6 +386,47 @@ function clearSelection() {
     updateInfoPanel();
 }
 
+function showCorrectPositionOnFretboard() {
+    // Obtener la nota objetivo y cuerda del módulo del juego
+    const targetNote = window.gameModule.getCurrentTargetNote();
+    const targetString = window.gameModule.getCurrentTargetString();
+    
+    if (!targetNote || !targetString) return;
+    
+    // Encontrar la posición correcta en el mástil
+    const correctPosition = document.querySelector(`[data-note="${targetNote}"][data-string="${targetString}"]`);
+    
+    if (correctPosition) {
+        // Aplicar estilo rojo a la posición correcta
+        correctPosition.style.background = 'rgba(220, 53, 69, 0.9)'; // Rojo
+        correctPosition.style.color = 'white'; // Texto blanco
+        correctPosition.style.transform = 'scale(1.2)';
+        correctPosition.style.boxShadow = '0 4px 12px rgba(220, 53, 69, 0.6)';
+        correctPosition.style.zIndex = '10';
+        
+        // Efecto visual en la cuerda correcta
+        const stringElement = document.querySelector(`[data-string="${targetString}"]`);
+        if (stringElement) {
+            stringElement.style.transform = 'scaleY(1.3)';
+            stringElement.style.boxShadow = '0 3px 8px rgba(220, 53, 69, 0.8)';
+        }
+        
+        // Restaurar después de 200 milisegundos
+        setTimeout(() => {
+            correctPosition.style.background = '';
+            correctPosition.style.color = '';
+            correctPosition.style.transform = '';
+            correctPosition.style.boxShadow = '';
+            correctPosition.style.zIndex = '';
+            
+            if (stringElement) {
+                stringElement.style.transform = '';
+                stringElement.style.boxShadow = '';
+            }
+        }, 1000);
+    }
+}
+
 // Event listener para limpiar selección al hacer clic fuera del mástil
 document.addEventListener('click', function(e) {
     if (!e.target.closest('.guitar-neck') && !e.target.closest('.info-panel')) {
@@ -511,6 +552,11 @@ function handleNoteClick(element) {
     
     // Lógica del juego
     if (window.gameModule && window.gameModule.isGameActive()) {
-        window.gameModule.checkNoteAnswer(currentNote, currentString);
+        const isCorrect = window.gameModule.checkNoteAnswer(currentNote, currentString);
+        
+        // Si la respuesta es incorrecta, mostrar la posición correcta en el mástil
+        if (!isCorrect && window.gameModule.isGameActive()) {
+            showCorrectPositionOnFretboard();
+        }
     }
 }
