@@ -232,7 +232,7 @@ function showCorrectNote() {
     const stringLabel = window.currentLanguage === 'es' ? 'cuerda' : 'string';
     
     // Cambiar el estilo de la nota flotante para mostrar la respuesta correcta
-    gameElements.floatingNote.style.background = 'rgba(220, 53, 69, 0.95)'; // Rojo
+    gameElements.floatingNote.style.background = 'rgba(220, 53, 70, 0.23)'; // Rojo
     gameElements.floatingNote.style.color = 'white'; // Texto blanco
     gameElements.floatingNote.style.border = '3px solid rgba(255, 255, 255, 0.3)';
     
